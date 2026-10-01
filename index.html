@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ankit Maurya | Portfolio</title>
+<meta name="description" content="Portfolio of Ankit Maurya – developer, video editor, learner and builder." />
+<meta name="theme-color" content="#0a0a0f" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --card:#12121a;
+    --border:rgba(255,255,255,.08);
+    --text:#e8e8f0;
+    --muted:#9a9ab0;
+    --accent:#7c5cff;
+    --accent2:#00d4ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+
+  .glow{
+    position:fixed;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(124,92,255,.18),transparent 70%);
+    pointer-events:none;transform:translate(-50%,-50%);z-index:0;
+    left:-500px;top:-500px;
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 8%;backdrop-filter:blur(14px);
+    background:rgba(10,10,15,.6);border-bottom:1px solid var(--border);
+  }
+  .logo{font-weight:800;font-size:1.25rem;letter-spacing:-.5px}
+  .logo span{color:var(--accent)}
+  nav ul{display:flex;gap:28px;list-style:none}
+  nav ul a{color:var(--muted);font-size:.92rem;font-weight:500;transition:.3s}
+  nav ul a:hover{color:#fff}
+  .menu-btn{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer}
+
+  section{position:relative;z-index:1;padding:110px 8%}
+
+  /* HERO */
+  #home{
+    min-height:100vh;padding-top:130px;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;width:fit-content;
+    padding:6px 14px;border:1px solid var(--border);border-radius:50px;
+    font-size:.82rem;color:var(--muted);background:var(--card);margin-bottom:26px;
+  }
+  .dot{width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 10px #22c55e;animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  h1{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;line-height:1.05;letter-spacing:-2px}
+  .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .role{margin-top:20px;font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--muted);min-height:2em}
+  .role b{color:#fff;font-weight:600}
+  .cursor{display:inline-block;width:2px;height:1.1em;background:var(--accent);margin-left:3px;vertical-align:middle;animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero-btns{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+  .btn{padding:14px 30px;border-radius:12px;font-weight:600;font-size:.95rem;transition:.3s;display:inline-flex;align-items:center;gap:10px}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),#5b8cff);color:#fff;box-shadow:0 8px 30px rgba(124,92,255,.35)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(124,92,255,.5)}
+  .btn-ghost{border:1px solid var(--border);background:var(--card)}
+  .btn-ghost:hover{border-color:var(--accent);transform:translateY(-3px)}
+
+  /* PHOTO CARD */
+  .hero-photo{position:relative;display:flex;justify-content:center;align-items:center}
+  .hero-photo::before{
+    content:"";position:absolute;inset:8% 8%;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    opacity:.3;filter:blur(70px);
+  }
+  .photo-card{
+    position:relative;z-index:2;
+    width:min(420px,100%);aspect-ratio:4/5;
+    border-radius:28px;overflow:hidden;
+    border:1px solid var(--border);
+    background:
+      radial-gradient(circle at 50% 38%,rgba(124,92,255,.35),transparent 62%),
+      linear-gradient(180deg,#171726,#0f0f18);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.7);
+  }
+  .photo-card img{
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    height:94%;width:auto;max-width:100%;
+    object-fit:contain;object-position:center bottom;
+    filter:drop-shadow(0 12px 24px rgba(0,0,0,.45));
+  }
+
+  /* headings */
+  .tag{color:var(--accent);font-weight:600;font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
+  h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-1px;margin:10px 0 50px}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .about-text p{color:var(--muted);margin-bottom:18px;font-size:1.05rem}
+  .about-text p b{color:#fff}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;transition:.3s}
+  .stat:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .stat i{display:block;font-size:1.5rem;color:var(--accent);margin-bottom:14px}
+  .stat h3{font-size:1.1rem;margin-bottom:4px}
+  .stat p{color:var(--muted);font-size:.88rem}
+
+  /* SKILLS */
+  .skills{display:flex;flex-wrap:wrap;gap:14px}
+  .skill{padding:12px 22px;border-radius:50px;background:var(--card);border:1px solid var(--border);font-weight:500;font-size:.95rem;display:flex;align-items:center;gap:10px;transition:.3s}
+  .skill i{color:var(--accent2)}
+  .skill:hover{border-color:var(--accent);transform:translateY(-4px);background:rgba(124,92,255,.1)}
+
+  /* PROJECTS */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .project{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;transition:.35s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+  .project::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,92,255,.12),transparent 60%);opacity:0;transition:.35s;pointer-events:none}
+  .project:hover{transform:translateY(-8px);border-color:var(--accent)}
+  .project:hover::before{opacity:1}
+  .project>*{position:relative}
+  .project .ico{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));font-size:1.3rem;margin-bottom:20px}
+  .project .ico.pink{background:linear-gradient(135deg,#ff5c8a,#ff9a5c)}
+  .project h3{margin-bottom:10px;font-size:1.2rem}
+  .project p{color:var(--muted);font-size:.93rem;margin-bottom:18px}
+  .tech{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .project .tech:last-child{margin-bottom:0}
+  .tech span{font-size:.75rem;padding:4px 12px;border-radius:50px;background:rgba(124,92,255,.12);color:#b8a8ff;border:1px solid rgba(124,92,255,.25)}
+  .plinks{display:flex;gap:12px;margin-top:auto}
+  .plinks a{flex:1;text-align:center;padding:10px 14px;border-radius:10px;font-size:.88rem;font-weight:600;border:1px solid transparent;background:linear-gradient(135deg,var(--accent),#5b8cff);transition:.3s;display:inline-flex;justify-content:center;align-items:center;gap:8px}
+  .plinks a:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,92,255,.4)}
+
+  /* VIDEO EDITING */
+  .sub-title{font-size:1.15rem;font-weight:700;margin:56px 0 22px;color:#fff}
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+  .tool{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 28px;transition:.35s}
+  .tool:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .tool .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;flex-shrink:0}
+  .tool .ico.pr{background:linear-gradient(135deg,#2b0a6b,#9999ff)}
+  .tool .ico.cc{background:linear-gradient(135deg,#111,#444);border:1px solid var(--border)}
+  .tool h3{font-size:1.1rem}
+  .tool p{color:var(--muted);font-size:.88rem}
+  .video-cta{text-align:center;margin-top:50px}
+  .btn-insta{background:linear-gradient(135deg,#f58529,#dd2a7b 50%,#8134af);color:#fff;box-shadow:0 8px 30px rgba(221,42,123,.3)}
+  .btn-insta:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(221,42,123,.5)}
+
+  /* CONTACT */
+  #contact{text-align:center}
+  #contact .sub{color:var(--muted);max-width:520px;margin:-30px auto 50px}
+  .socials{display:flex;justify-content:center;flex-wrap:wrap;gap:22px}
+  .social{position:relative;width:78px;height:78px;border-radius:22px;display:grid;place-items:center;font-size:1.9rem;background:var(--card);border:1px solid var(--border);transition:.35s}
+  .social:hover{transform:translateY(-8px) scale(1.08);border-color:var(--c);color:var(--c);box-shadow:0 12px 35px -5px var(--c)}
+  .social::after{content:attr(data-name);position:absolute;bottom:-34px;left:50%;transform:translateX(-50%) translateY(-5px);font-size:.75rem;color:var(--muted);opacity:0;transition:.3s;white-space:nowrap}
+  .social:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  footer{position:relative;z-index:1;text-align:center;padding:40px 8%;color:var(--muted);font-size:.88rem;border-top:1px solid var(--border)}
+  .reveal{opacity:0;transform:translateY(40px);transition:all .8s ease}
+  .reveal.show{opacity:1;transform:none}
+
+  @media(max-width:950px){
+    #home{grid-template-columns:1fr;padding-top:110px;gap:30px}
+    .hero-photo{order:-1}
+    .photo-card{width:min(340px,100%)}
+    .about-grid{grid-template-columns:1fr}
+    .menu-btn{display:block}
+    nav ul{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(10,10,15,.97);max-height:0;overflow:hidden;transition:.4s}
+    nav ul.open{max-height:420px;border-bottom:1px solid var(--border)}
+    nav ul li{padding:16px 8%}
+    .glow{display:none}
+    .social{width:68px;height:68px;font-size:1.6rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="logo">Ankit Maurya<span>.</span></a>
+  <ul id="menu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#video">Video Editing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-text">
+    <div class="badge"><span class="dot"></span> Available for opportunities</div>
+    <h1>Hi, I'm <br><span class="grad">Ankit Maurya</span></h1>
+    <p class="role">I'm a <b id="typed"></b><span class="cursor"></span></p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View My Work <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-photo">
+    <div class="photo-card">
+      <img src="ankit.png" alt="Ankit Maurya">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <span class="tag">About Me</span>
+    <h2>A little about me</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Hello! I'm <b>Ankit Maurya</b>, a passionate developer and <b>video editor</b> who loves turning ideas into clean, functional and beautiful digital experiences.</p>
+      <p>I enjoy <b>learning new technologies</b>, building projects and solving real-world problems with code.</p>
+      <p>Besides coding, I <b>edit videos</b> using <b>Adobe Premiere Pro</b> and <b>CapCut</b>: reels, shorts and YouTube content with smooth cuts, effects and storytelling.</p>
+      <p>Always curious, always building. Let's create something amazing together.</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><i class="fa-solid fa-code"></i><h3>Coding</h3><p>Clean &amp; efficient</p></div>
+      <div class="stat"><i class="fa-solid fa-film"></i><h3>Video Editing</h3><p>Reels, shorts &amp; more</p></div>
+      <div class="stat"><i class="fa-solid fa-rocket"></i><h3>Learning</h3><p>Every single day</p></div>
+      <div class="stat"><i class="fa-solid fa-lightbulb"></i><h3>Creative</h3><p>Problem solving</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <span class="tag">Skills</span>
+    <h2>Tech I work with</h2>
+  </div>
+  <div class="skills reveal">
+    <div class="skill"><i class="fa-brands fa-python"></i> Python</div>
+    <div class="skill"><i class="fa-solid fa-brain"></i> Machine Learning</div>
+    <div class="skill"><i class="fa-solid fa-robot"></i> AI</div>
+    <div class="skill"><i class="fa-solid fa-database"></i> Database</div>
+    <div class="skill"><i class="fa-solid fa-globe"></i> Web Development</div>
+    <div class="skill"><i class="fa-brands fa-html5"></i> HTML</div>
+    <div class="skill"><i class="fa-brands fa-css3-alt"></i> CSS</div>
+    <div class="skill"><i class="fa-brands fa-js"></i> JavaScript</div>
+    <div class="skill"><i class="fa-brands fa-react"></i> React</div>
+    <div class="skill"><i class="fa-solid fa-code"></i> TypeScript</div>
+    <div class="skill"><i class="fa-solid fa-wind"></i> Tailwind CSS</div>
+    <div class="skill"><i class="fa-solid fa-film"></i> Video Editing</div>
+    <div class="skill"><i class="fa-solid fa-clapperboard"></i> Reels &amp; Shorts</div>
+    <div class="skill"><i class="fa-solid fa-sliders"></i> Color Grading</div>
+    <div class="skill"><i class="fa-solid fa-film"></i> Adobe Premiere Pro</div>
+    <div class="skill"><i class="fa-solid fa-scissors"></i> CapCut</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <span class="tag">Projects</span>
+    <h2>Things I've built</h2>
+  </div>
+  <div class="projects">
+
+    <div class="project reveal">
+      <div class="ico"><i class="fa-solid fa-user-check"></i></div>
+      <h3>AI-Powered Attendance System</h3>
+      <p>Face recognition based system to automate student attendance.</p>
+      <div class="tech"><span>AI</span><span>Machine Learning</span><span>Python</span></div>
+      <div class="plinks">
+        <a href="https://github.com/ankitmaurya-c0der" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Code</a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="ico"><i class="fa-solid fa-book-open"></i></div>
+      <h3>E-Library Management System</h3>
+      <p>Digital solution to manage books, students, and records efficiently.</p>
+      <div class="tech"><span>Database</span><span>Web Development</span><span>Python</span></div>
+      <div class="plinks">
+        <a href="https://github.com/ankitmaurya-c0der" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Code</a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="ico"><i class="fa-solid fa-calculator"></i></div>
+      <h3>Calculator App</h3>
+      <p>Simple yet effective calculator for basic operations.</p>
+      <div class="tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+      <div class="plinks">
+        <a href="https://github.com/ankitmaurya-c0der" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Code</a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="ico"><i class="fa-solid fa-globe"></i></div>
+      <h3>Portfolio Website</h3>
+      <p>Modern responsive portfolio showcasing skills and projects.</p>
+      <div class="tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+      <div class="plinks">
+        <a href="https://ankitmaurya-c0der.github.io" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>
+        <a href="https://github.com/ankitmaurya-c0der/ankitmaurya-c0der.github.io" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Code</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VIDEO EDITING -->
+<section id="video">
+  <div class="reveal">
+    <span class="tag">Video Editing</span>
+    <h2>Stories I've edited</h2>
+  </div>
+
+  <div class="projects">
+    <div class="project reveal">
+      <div class="ico pink"><i class="fa-solid fa-clapperboard"></i></div>
+      <h3>Reels &amp; Shorts</h3>
+      <p>Fast-paced, eye-catching vertical videos with trending transitions, captions and sound sync.</p>
+      <div class="tech"><span>Instagram Reels</span><span>YouTube Shorts</span><span>Transitions</span></div>
+    </div>
+
+    <div class="project reveal">
+      <div class="ico pink"><i class="fa-brands fa-youtube"></i></div>
+      <h3>YouTube Videos</h3>
+      <p>Long-form editing with clean cuts, smooth pacing, subtitles and background music.</p>
+      <div class="tech"><span>Cutting</span><span>Subtitles</span><span>Sound Design</span></div>
+    </div>
+
+    <div class="project reveal">
+      <div class="ico pink"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+      <h3>Color Grading &amp; Effects</h3>
+      <p>Cinematic color correction, visual effects and motion touches that make videos stand out.</p>
+      <div class="tech"><span>Color Grading</span><span>VFX</span><span>Motion</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub-title reveal">Tools I Use</h3>
+  <div class="tools">
+    <div class="tool reveal">
+      <div class="ico pr"><i class="fa-solid fa-film"></i></div>
+      <div>
+        <h3>Adobe Premiere Pro</h3>
+        <p>Professional timeline editing</p>
+      </div>
+    </div>
+    <div class="tool reveal">
+      <div class="ico cc"><i class="fa-solid fa-scissors"></i></div>
+      <div>
+        <h3>CapCut</h3>
+        <p>Quick reels, effects &amp; captions</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-cta reveal">
+    <a class="btn btn-insta" href="https://www.instagram.com/ankit_maurya53" target="_blank" rel="noopener noreferrer">
+      <i class="fa-brands fa-instagram"></i> Watch My Work
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT (icons only) -->
+<section id="contact">
+  <div class="reveal">
+    <span class="tag">Contact</span>
+    <h2>Let's connect</h2>
+    <p class="sub">Find me on these platforms, or just reach out directly.</p>
+  </div>
+  <div class="socials reveal">
+    <a class="social" style="--c:#e1306c" data-name="Instagram" aria-label="Instagram"
+       href="https://www.instagram.com/ankit_maurya53" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+
+    <a class="social" style="--c:#0a8fe8" data-name="LinkedIn" aria-label="LinkedIn"
+       href="https://www.linkedin.com/in/ankit-maurya-2a6b26395" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+
+    <a class="social" style="--c:#29a9eb" data-name="Telegram" aria-label="Telegram"
+       href="https://t.me/Ankit_maurya53" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i></a>
+
+    <a class="social" style="--c:#ffffff" data-name="GitHub" aria-label="GitHub"
+       href="https://github.com/ankitmaurya-c0der" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+
+    <a class="social" style="--c:#ffffff" data-name="X" aria-label="X (Twitter)"
+       href="https://x.com/Ankitsmaurya53" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+
+    <a class="social" style="--c:#ff5c5c" data-name="Email" aria-label="Email"
+       href="mailto:ankitmauryagkp53@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+
+    <a class="social" style="--c:#22c55e" data-name="Call" aria-label="Phone"
+       href="tel:+919336429219"><i class="fa-solid fa-phone"></i></a>
+  </div>
+</section>
+
+<footer>© <span id="year"></span> Ankit Maurya. All rights reserved.</footer>
+
+<script>
+  // cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // typing effect
+  const roles = ['Developer', 'Video Editor', 'Problem Solver', 'Creative Thinker', 'Lifelong Learner'];
+  const el = document.getElementById('typed');
+  let r = 0, c = 0, del = false;
+  (function type(){
+    const word = roles[r];
+    el.textContent = word.substring(0, c);
+    if(!del && c < word.length){ c++; setTimeout(type, 110); }
+    else if(!del){ del = true; setTimeout(type, 1500); }
+    else if(c > 0){ c--; setTimeout(type, 55); }
+    else { del = false; r = (r + 1) % roles.length; setTimeout(type, 300); }
+  })();
+
+  // scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }});
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(x => io.observe(x));
+
+  // mobile menu
+  const menu = document.getElementById('menu');
+  document.getElementById('menuBtn').onclick = () => menu.classList.toggle('open');
+  menu.querySelectorAll('a').forEach(a => a.onclick = () => menu.classList.remove('open'));
+
+  // footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
